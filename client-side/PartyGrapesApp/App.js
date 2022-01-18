@@ -10,15 +10,20 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { mainscreen } from './components/Mainscreen';
 
+
+const Tab = createBottomTabNavigator();
 
 const App = () => {
 
   return (
     <>
-      <View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
-      <View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
-      <View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen name="home" component={mainscreen}/>
+        </Tab.Navigator>
+      </NavigationContainer>
     </>
   );
 };
@@ -30,9 +35,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
     btext: {
-      color: 'white',
+      color: 'black',
     }
 
 });
 
 export default App;
+
+
+//<View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
+//<View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
+//<View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
