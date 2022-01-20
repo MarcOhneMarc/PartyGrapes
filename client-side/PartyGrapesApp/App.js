@@ -11,6 +11,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { mainscreen } from './components/Mainscreen';
+import { settingscreen } from './components/settingscreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -20,8 +21,9 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Navigator screenOptions={{headerShown:false, tabBarStyle: {backgroundColor: 'white', position: 'absolute', bottom: 40, marginHorizontal: 20, height: 60, borderRadius: 10, shadowColor: '#000', shadowOpacity: 0.06},}}>
           <Tab.Screen name="home" component={mainscreen}/>
+          <Tab.Screen name="Settings" component={settingscreen}/>
         </Tab.Navigator>
       </NavigationContainer>
     </>
@@ -29,15 +31,11 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  cText: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-    btext: {
-      color: 'black',
-    }
-
+  tabbar: {
+    position: "absolute",
+    padding: 30,
+    color: 'white',
+  }
 });
 
 export default App;
