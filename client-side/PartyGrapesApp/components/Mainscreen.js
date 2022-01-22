@@ -1,34 +1,52 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, Image, View, Button } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 export const mainscreen = () => {
 
     return(
         <>
-
-            <View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
-            <View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
-            <View style={styles.cText}><Text style={styles.btext}>Test</Text></View>
+          <View style={styles.main}>
+            <View style={styles.cText}><Text style={styles.btext}>Öffentliche{"\n"}Party's</Text></View>
+            <View style={styles.cText}><Text style={styles.btext}>Zugesagt</Text></View>
+            <View style={styles.cText}><Text style={styles.btext}>Einladungen</Text></View>
+          </View>
         </>
     );
 };
 
+export const empty = () => {
+
+  return(
+      <>
+          <View style={styles.cText}><Text style={styles.btext}></Text></View>
+      </>
+  );
+};
+
 const styles = StyleSheet.create({
     main:{
-      backgroundColor: '#e2e2e2',
-
+      backgroundColor: '#343248',
+      width: '100%',
+      height: '100%',
     },
     cText: {
-      flex: 1,
+      backgroundColor: '#575478',
       justifyContent: 'center',
       alignItems: 'center',
-        zIndex: 5,
-        border: 5,
-        borderColor: 'Black',
+      height: '23%',
+      margin: 20,
+      borderRadius: 10,
+      shadowColor: '#000', 
+      shadowOpacity: 0.06
     },
       btext: {
-        color: 'black',
+        color: '#C7ABFF',
+        position: 'absolute',
+        left: 10,
+        fontSize: 25,
+        fontFamily: 'nunito',
       }
-
+    
   });
