@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import faunadb from 'faunadb';
+import createRouts from './router/create.js'
 
 const app = express();
 const client = new faunadb.Client({
@@ -21,6 +22,8 @@ app.use(
         allowedHeaders: true,
     })
 );
+
+app.use ('/create', createRouts)
 
 // Main Section
 

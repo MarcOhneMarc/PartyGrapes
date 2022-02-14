@@ -22,7 +22,7 @@ export const mainscreen = (navigation) => {
             </View>
             <View style={styles.cText}>
                 <Text style={styles.btext}>Einladungen</Text>
-                <Image style={styles.ticons} source={require('../assets/img/Element_10.png')}/>
+                <Image style={styles.ticons} source={require('../assets/img/Element_12.png')}/>
 
             </View>
           </SafeAreaView>
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     ticons: {
         position: "absolute",
         right: 15,
-        width: 152,
-        height: 110,
+        width: 140,
+        height: 100,
     },
         centeredView: {
             flex: 1,
