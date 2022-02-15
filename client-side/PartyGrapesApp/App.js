@@ -13,9 +13,14 @@ import { mainscreen, empty, addfriend, createparty } from './components/Mainscre
 import { settingscreen } from './components/settingscreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import axios from 'axios';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+
+
 
 export const App = () => {
     return (

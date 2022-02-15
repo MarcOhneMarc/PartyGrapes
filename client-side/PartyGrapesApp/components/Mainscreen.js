@@ -1,11 +1,45 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View,Image } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View,Image, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {returnKeyType} from "react-native/Libraries/DeprecatedPropTypes/DeprecatedTextInputPropTypes";
+import axios from 'axios';
 //import { NavigationContainer } from '@react-navigation/native';
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //const Stack = createNativeStackNavigator()
+
+
+// Dummy Data
+const partydata = {
+    user: "marc",
+    partyname: "test Party",
+    date: 21022022,
+    type: "Public",
+    message: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna",
+    peopleInvited: [
+        "Perwak Marc",
+        "Hypey Kante",
+        "Marvin Süser",
+    ],
+    peopleAccepted: []
+}
+
+// Logig for posting in FaunaDB via Axios HTTP Post
+function postParty(){
+    let config = {
+        header: {
+            'Content-Type': 'application/json'
+        }
+    } 
+        axios.post('https://localhost:5000/create',  { partydata }, config)
+        .then(res => {
+            console.log(res);
+            console.log(res.body);
+        })
+        .catch(error => {
+            console.log(error)
+        })    
+    };
 
 export const mainscreen = (navigation) => {
 
@@ -37,7 +71,7 @@ export const empty = (navigation) => {
 export const createparty = (navigation) => {
     return(
     <View>
-        <Text>Create_Party</Text>
+        <Button title='TEST' onPress={postParty}> TEST </Button>
     </View>
     );
 }
