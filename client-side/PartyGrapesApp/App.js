@@ -15,19 +15,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import axios from 'axios';
 
-
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-
-
-
 
 export const App = () => {
     return (
     <NavigationContainer>
         <Stack.Navigator>
             <Stack.Screen name={"main"} component={main} options={{headerShown: false}}/>
-            <Stack.Screen name={"createparty"} component={createparty}/>
+            <Stack.Screen name={"createparty"} component={createparty} options={{ title: 'Party Erstellen', headerShown: false, }}/>
             <Stack.Screen name={"addfriends"} component={addfriend}/>
         </Stack.Navigator>
     </NavigationContainer>
@@ -36,6 +32,7 @@ export const App = () => {
 
 const main = (navigation) => {
     const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <>
         <Tab.Navigator screenOptions={{tabBarShowLabel: false, headerShown:false, tabBarStyle: {backgroundColor: '#4E4B6C', position: 'absolute', bottom: 40, marginHorizontal: 20, height: 60, borderRadius: 10, shadowColor: '#000', shadowOpacity: 0.06}, paddingHorizontal: 20,}}>
@@ -64,7 +61,7 @@ const main = (navigation) => {
                       <View style={styles.centeredView}>
                           <View style={styles.modalView}>
                               <View>
-                                  <Pressable style={[styles.buttonb, styles.buttonClose]} onPress={() => navigation.navigate('createparty')}>
+                                  <Pressable style={[styles.buttonb, styles.buttonClose]} onPress={() => navigation.navigate('createparty') + setModalVisible(!modalVisible)}>
                                       <Icon name="birthday-cake" size={20} color={'white'}/>
                                   </Pressable>
                                   <Pressable style={[styles.buttonx, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>

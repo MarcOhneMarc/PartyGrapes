@@ -1,7 +1,7 @@
 import express from 'express';
 import faunadb from 'faunadb';
 const client = new faunadb.Client({
-    secret: '',
+    secret: 'fnAEdOLdGiAAwJCDZkdkmVczwiFH-w_lfo2iRiAr',
     domain: 'db.eu.fauna.com',
     scheme: 'https',
 });
@@ -17,7 +17,7 @@ const urlencodedParser = express.urlencoded({ extended: false })
 
 export const createParty =  ('/', express.json , async (req, res) => {
     const data = req.body
-    
+
     const doc = await client.query(
         Create(
             Collection('Partys'),

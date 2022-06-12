@@ -1,48 +1,17 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View,Image, Button } from 'react-native';
+import React, {useState, Component } from 'react';
+import { SafeAreaView, StyleSheet, Text, View,Image, Button, TextInput, } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {returnKeyType} from "react-native/Libraries/DeprecatedPropTypes/DeprecatedTextInputPropTypes";
+import { postParty } from '../logic/posting';
+import DatePicker from 'react-native-date-picker'
+import {Picker} from '@react-native-picker/picker';
 import axios from 'axios';
 //import { NavigationContainer } from '@react-navigation/native';
 //import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //const Stack = createNativeStackNavigator()
 
-
-// Dummy Data
-const partydata = {
-    user: "marc",
-    partyname: "test Party",
-    date: 21022022,
-    type: "Public",
-    message: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna",
-    peopleInvited: [
-        "Perwak Marc",
-        "Hypey Kante",
-        "Marvin Süser",
-    ],
-    peopleAccepted: []
-}
-
-// Logig for posting in FaunaDB via Axios HTTP Post
-function postParty(){
-    let config = {
-        header: {
-            'Content-Type': 'application/json'
-        }
-    } 
-        axios.post('https://localhost:5000/create',  { partydata }, config)
-        .then(res => {
-            console.log(res);
-            console.log(res.body);
-        })
-        .catch(error => {
-            console.log(error)
-        })    
-    };
-
-export const mainscreen = (navigation) => {
-
+export class mainscreen extends Component {
+    render(){
     return(
         <>
           <SafeAreaView style={styles.main}>
@@ -62,21 +31,73 @@ export const mainscreen = (navigation) => {
           </SafeAreaView>
         </>
     );
-};
+    }
+}
 
-export const empty = (navigation) => {
+export const empty = () => {
   return null;
 };
 
-export const createparty = (navigation) => {
+export let partydata = {}
+
+export const createparty = ({navigation: { goBack }}) => {
+
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
+    const [selectedLanguage, setSelectedLanguage] = useState();
+
+    const [Partyname, setPartyname] = useState('');
+    const [Partymessage, setPartymessage] = useState('');
+
+    partydata = {
+        user: "Marc",
+        partyname: Partyname,
+        date: date,
+        type: selectedLanguage,
+        message: Partymessage,
+        peopleInvited: [
+            "Perwak Marc",
+            "Hypey Kante",
+            "Marvin Süser",
+        ],
+        peopleAccepted: []
+    }
+
     return(
-    <View>
-        <Button title='TEST' onPress={postParty}> TEST </Button>
-    </View>
+        <SafeAreaView style={styles.createp}>
+            <View>
+                <Text style={styles.cpt}>Party Erstellen</Text>
+                <TextInput style={styles.textinp} placeholderTextColor="grey" name="partyname" placeholder="Party Name" onChangeText={newText => setPartyname(newText)}/>
+                <TextInput multiline numberOfLines={4} placeholderTextColor="grey" style={styles.textinpmessage} name="partymessage" placeholder="Infos" onChangeText={newText => setPartymessage(newText)}/>
+                <View style={styles.dateview}>
+                    <Text style={styles.datetext}>Lege ein Datum Fest</Text>
+                    <Button style={styles.datebutton} title="" onPress={() => setOpen(true)} />
+                        <DatePicker modal open={open} date={date} onConfirm={
+                            (date) => { setOpen(false)
+                                setDate(date)
+                            }}
+                            onCancel={() => {
+                                setOpen(false)
+                            }}
+                        />
+                </View>
+                <Picker style={styles.typepickcont} itemStyle={styles.typepick} selectedValue={selectedLanguage} onValueChange={
+                    (itemValue, itemIndex) =>
+                        setSelectedLanguage(itemValue)
+                    }>
+                    <Picker.Item label="Privat" value="privat" />
+                    <Picker.Item label="Public" value="public" />
+                </Picker>
+                <View style={styles.backsend}>
+                    <Button title='Send' style={styles.endbuttons} onPress={postParty}/>
+                    <Button title='Zurück' style={styles.endbuttons} onPress={() => goBack()}/>
+                </View>
+            </View>
+        </SafeAreaView>
     );
 }
 
-export const addfriend = (navigation) => {
+export const addfriend = () => {
     return(
     <SafeAreaView>
         <Text>add_friernd</Text>
@@ -159,5 +180,89 @@ const styles = StyleSheet.create({
         modalText: {
             marginBottom: 15,
             textAlign: "center"
-        }
+        },
+    textinp:{
+        height: 50,
+        borderRadius: 30,
+        fontSize: 20,
+        fontFamily: 'nunito',
+        fontWeight: '400',
+        paddingLeft: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 20,
+        color: "white",
+        backgroundColor: "#575478",
+    },
+    createp:{
+      backgroundColor: "#343248",
+        width: "100%",
+        height: "100%",
+    },
+    cpt:{
+        color: 'white',
+        fontSize: 25,
+        fontFamily: 'nunito',
+        fontWeight: '400',
+        paddingLeft: 20,
+        paddingTop: 20,
+    },
+    textinpmessage:{
+        height: 200,
+        borderRadius: 30,
+        fontSize: 20,
+        fontFamily: 'nunito',
+        fontWeight: '400',
+        paddingLeft: 20,
+        paddingTop: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 20,
+        backgroundColor: "#575478",
+    },
+    dateview:{
+        backgroundColor: '#575478',
+        fontSize: 30,
+        fontFamily: 'nunito',
+        color: 'white',
+        borderRadius: 30,
+        paddingLeft: 20,
+        marginRight: 10,
+        marginTop: 20,
+        marginLeft: 10,
+    },
+    datetext:{
+        display: "flex",
+        paddingLeft: 75,
+        paddingRight: 75,
+        top: "25%",
+        fontSize: 20,
+        fontFamily: 'nunito',
+        color: "#d8dce4",
+    },
+    typepickcont:{
+        fontFamily: 'nunito',
+        marginBottom: 50,
+        height:100,
+    },
+    typepick:{
+        fontFamily: 'nunito',
+        color: "#d8dce4",
+        height:130,
+        marginTop: -10,
+    },
+    backsend:{
+        flexDirection: "row",
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: "100%",
+        position: "absolute",
+        bottom: -200,
+        height: 70,
+    },
+    endbuttons:{
+        backgroundColor: '#575478',
+        width: "50%",
+        height: 70,
+    }
   });

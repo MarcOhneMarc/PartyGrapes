@@ -5,7 +5,7 @@ import createRouts from './router/create.js'
 
 const app = express();
 const client = new faunadb.Client({
-    secret: '',
+    secret: 'fnAEdOLdGiAAwJCDZkdkmVczwiFH-w_lfo2iRiAr',
     domain: 'db.eu.fauna.com',
     scheme: 'https',
 });
